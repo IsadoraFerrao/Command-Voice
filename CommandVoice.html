@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>The experience of a Brazilian Woman Scientist</title>
+
+		<style>
+			.contrast{
+			color: white;
+			background-color: black;
+			}
+		</style>
+	</head>
+
+	<body style="background-color:#C71585; color:white;">
+		<h2> OBSERVATION: Test phase code - This code must be located on localhost </h2>
+
+		<h1>Click the button below and then speak into your "contrast" microphone.</h1>
+		<button id="speakBtn" style="font-size:30px; background-color:#F5F5DC">Voice command</button>
+		<script>
+			window.addEventListener('DOMContentLoaded', function() {
+				var speakBtn = document.querySelector('#speakBtn');
+
+				// tests whether the browser supports speech recognition
+				if (window.SpeechRecognition || window.webkitSpeechRecognition){
+
+					// capture the voice
+					var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+					var recognition = new SpeechRecognition();
+
+					// starts recognition
+					speakBtn.addEventListener('click', function(e) {
+						recognition.start();
+					}, false);
+
+					// recognition result
+					recognition.addEventListener('result', function(e) {
+						console.log(e);
+						var result = e.results[0][0].transcript;
+						console.log(result);
+						if (result.toLowerCase() === 'contrast') {
+							document.body.classList.toggle('contrast');
+						}
+					}, false);
+				} 
+				else{
+					alert('This browser does not support this feature yet!');
+				}
+
+			}, false);
+		</script>
+	</body>
+</html>
